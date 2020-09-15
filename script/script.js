@@ -13,7 +13,7 @@ const Config = {
             ".Nix",
             [
                 ["r/unix", "https://www.reddit.com/r/unixporn/"],
-                ["d0tshareit", "https://www.dotshareit.com"]
+                ["d0tshareit", "http://www.dotshare.it"]
             ]
         ],
         [
