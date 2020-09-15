@@ -3,34 +3,34 @@ const Config = {
     scale: 1,
     Links: [
         [
-            "site",
+            "Code",
             [
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"]
+                ["github", "https://github.com/l0bsters"],
+                ["w3s", "https://www.w3schools.com"]
             ]
         ],
         [
-            "site",
+            ".Nix",
             [
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"]
+                ["r/unix", "https://www.reddit.com/r/unixporn/"],
+                ["d0tshareit", "https://www.dotshareit.com"]
             ]
         ],
         [
-            "site",
+            "Media",
             [
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"]
+                ["vimeo", "https://www.vimeo.com"],
+                ["youtube", "https://www.youtube.com"],
+                ["TPB", "https://www.thepiratebay.org"]
             ]
         ],
         [
-            "site",
+            "Misc",
             [
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"],
-                ["link", "https://www.example.com"]
+                ["digitalOcean", "https://www.digitalocean.com"],
+                ["underd0g", "http://www.underd0g.co"],
+                ["l0bster", "https://www.l0bster.ru"],
+                ["2f30", "https://www.2f30.org"]
             ]
         ]
     ]
