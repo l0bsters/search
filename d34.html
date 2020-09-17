@@ -1,0 +1,236 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel = "stylesheet" type = "text/css" href = "http://underd0g.co/projects/projectstyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+
+</head>
+<body>
+  <style>
+
+  @font-face {
+    font-family: myfont;
+    src: url(slkscr.ttf);
+    font-size: 14px;
+  }
+
+body {
+  font-family: myfont;
+  font-weight: 300;
+  font-size: 1.2em;
+  line-height: 3.7em;
+  background: #222;
+}
+
+p{
+  background-color: #222;
+  color: white;
+
+}
+
+#top{
+  background: #222;
+}
+
+#col{
+
+}
+.text{
+  color:black;
+}
+
+/*  */
+
+input {
+  width: 35%;
+  background: transparent;
+  border: none;
+  font-family: myfont;
+  font-size: 36;
+  color: #c0a79a;
+  padding-top: 150px;
+}
+
+input:focus {
+  outline: 0;
+}
+
+input::placeholder {
+  color: #fbfbfb;
+}
+#form-search {
+  margin: 1em 2em;
+}
+
+</style>
+
+
+  <div class="container"><center>
+    <form id="form-search" action="https://duckduckgo.com/" method="get" autocomplete="off">
+                    <input id="search" placeholder="" type="text" name="q" autofocus="">
+                </form>
+              </center>
+    <div class="row" align='center'>
+      <div class="col-xsm-12" id = "col">
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+
+  <script>
+
+    //Constants for the SVG
+    var width = 450,
+        height = 420;
+
+    //Set up the colour scale
+    var color = d3.scale.category20c()
+  //   var color = d3.scaleOrdinal() // D3 Version 4
+  // .domain(["9", "7", "1"])
+  .range(["#87404f", "#615772" , "#4c9882"]);
+    //Set up the force layout
+    var force = d3.layout.force()
+      .gravity(0.03)
+      .charge(-240)
+      .linkDistance(100)
+      .size([width, height]);
+
+
+    //yes this is an svg
+    var svg = d3.select(".col-xsm-12").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+
+    // hard-code some json
+    var graph = {
+      "nodes":[
+      {"name":"facebook","group":1, url: "https://facebook.com"},
+      {"name":"twitter","group":1, url: "https://twitter.com"},
+      {"name":"Reddit","group":1, url: "https://reddit.com"},
+      {"name":"youtube","group":9, url: "http://youtube.com"},
+      {"name":"gmail","group":9, url: "https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"},
+      {"name":"wiki","group":9, url: "https://wikipedia.org"},
+      {"name":"l0bster","group":7, url: "https://l0bster.ru"},
+      {"name":"2f30","group":7,url:"https://2f30.org"}
+
+    ],
+      "links":[
+      {"source":1,"target":0,"value":1},
+      {"source":2,"target":0,"value":2},
+      {"source":4,"target":3,"value":3},
+      {"source":5,"target":4,"value":3},
+      {"source":5,"target":3,"value":4},
+      {"source":6,"target":5,"value":5},
+      {"source":6,"target":0,"value":5},
+      {"source":2,"target":1,"value":5},
+      {"source":7,"target":6,"value":5}
+
+
+    ]
+    }
+
+  //Creates the graph data structure out of the json data
+      force.nodes(graph.nodes)
+        .links(graph.links)
+        .start();
+
+  //Create all the line svgs but without locations yet
+      var link = svg.selectAll(".link")
+        .data(graph.links)
+        .enter().append("line")
+        .attr("class", "link")
+        .style("stroke-width", function (d) {
+          return Math.sqrt(d.value);
+        });
+
+  //Do the same with the circles for the nodes
+      var node = svg.selectAll(".node")
+        .data(graph.nodes)
+        .enter().append("g")
+        .attr("class", "node")
+        .call(force.drag);
+
+      node.append("circle")
+        .attr("r", 10)
+        .style("fill", function (d) {
+          return color(d.group);
+
+        })
+
+
+  //give my children  some attributes!
+      node.each(function(d){
+        var thisNode = d3.select(this);
+
+        if (!d.children) {
+          thisNode.append("svg:a")
+            .attr("xlink:href",function(d) { return d.url; })
+            .attr("target", "_blank")
+            //.text(function(d) { return d.url; }) (this isnt clugy enough)
+            .append("text")
+            .attr("dx", 8)
+            .attr("dy", 3)
+            .attr("text-anchor", "start")
+
+
+            .text( function(d) { return d.name; });
+        } else {
+          thisNode.append("text")
+            .attr("dx", -8)
+            .attr("dy", 3)
+            .attr("text-anchor", "end")
+
+            .text(function(d) { return d.name; });
+        }
+      });
+
+
+  // force be with you
+      force.on("tick", function () {
+        link.attr("x1", function (d) {
+          return d.source.x;
+        })
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
+
+        //Changed
+
+        d3.selectAll("circle").attr("cx", function (d) {
+          return d.x;
+        })
+          .attr("cy", function (d) {
+            return d.y;
+          });
+
+        d3.selectAll("text").attr("x", function (d) {
+
+        return d.x;
+        })
+          .attr("y", function (d) {
+            return d.y;
+          });
+      });
+
+
+  </script>
+
+  </div>
+  </div>
+  </div>
+
+  </div>
+
+</body>
+</html>
