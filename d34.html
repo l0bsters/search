@@ -39,10 +39,29 @@ p{
 }
 
 #col{
-
+  color: white;
+  
 }
-.text{
-  color:black;
+text{
+  stroke-width: 0.09;
+  stroke: white;
+  fill: white;
+}
+.node {
+  color: white;
+  stroke-width: 1.0px;
+  fill: white;
+}
+
+
+.link {
+  stroke: #555;
+  stroke-width: 1.0px;
+}
+
+.node text {
+  font: 13px ;
+
 }
 
 /*  */
@@ -80,12 +99,11 @@ input::placeholder {
       <div class="col-xsm-12" id = "col">
 
   <script src="https://d3js.org/d3.v3.min.js"></script>
-
   <script>
 
     //Constants for the SVG
-    var width = 450,
-        height = 420;
+    var width = 350,
+        height = 300;
 
     //Set up the colour scale
     var color = d3.scale.category20c()
@@ -94,9 +112,9 @@ input::placeholder {
   .range(["#87404f", "#615772" , "#4c9882"]);
     //Set up the force layout
     var force = d3.layout.force()
-      .gravity(0.03)
-      .charge(-240)
-      .linkDistance(100)
+      .gravity(0.05)
+      .charge(-150)
+      .linkDistance(80)
       .size([width, height]);
 
 
@@ -144,6 +162,7 @@ input::placeholder {
         .data(graph.links)
         .enter().append("line")
         .attr("class", "link")
+        .attr('font-color', 'white')
         .style("stroke-width", function (d) {
           return Math.sqrt(d.value);
         });
@@ -157,6 +176,7 @@ input::placeholder {
 
       node.append("circle")
         .attr("r", 10)
+        .attr('font-color', 'white')
         .style("fill", function (d) {
           return color(d.group);
 
@@ -172,11 +192,12 @@ input::placeholder {
             .attr("xlink:href",function(d) { return d.url; })
             .attr("target", "_blank")
             //.text(function(d) { return d.url; }) (this isnt clugy enough)
-            .append("text")
+            .append("text", "fill", "white")
             .attr("dx", 8)
             .attr("dy", 3)
             .attr("text-anchor", "start")
-
+            .attr('font-color', 'white')
+            .attr('font-color', 'white')
 
             .text( function(d) { return d.name; });
         } else {
@@ -184,7 +205,7 @@ input::placeholder {
             .attr("dx", -8)
             .attr("dy", 3)
             .attr("text-anchor", "end")
-
+            .attr('font-color', 'white')
             .text(function(d) { return d.name; });
         }
       });
@@ -225,6 +246,7 @@ input::placeholder {
 
 
   </script>
+
 
   </div>
   </div>
