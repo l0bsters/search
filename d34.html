@@ -94,20 +94,28 @@ input::placeholder {
 </style>
 
 
-  <div class="container"><center>
+<div class="container"><center>
     <form id="form-search" action="https://duckduckgo.com/" method="get" autocomplete="off">
                     <input id="search" placeholder="" type="text" name="q" autofocus="">
                 </form>
               </center>
-    <div class="row" align='center'>
+             <div class="row" align='center'>
       <div class="col-xsm-12" id = "col">
-
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script>
 
-    //Constants for the SVG
-    var width = 350,
-        height = 300;
+    //setup for the d3 SVG
+
+
+// testing a resize method using the browser measurements 
+
+  var width = window.innerWidth, 
+      height = window.innerHeight;
+
+
+
+
+
 
     //Set up the colour scale
     var color = d3.scale.category20c()
