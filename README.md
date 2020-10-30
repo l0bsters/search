@@ -9,7 +9,7 @@ Responsive D3.js startpage that we kluged together by appending hrefs to nodes o
 ## Usage
 
 Use it as a local startpage or utilize our hosted version. All styles are inline, so you can just run the .html file. Include the .ttf file in the same directory if you want the 8 bit font. 
-
+l0bster added full responsiveness to the page without the search bar. uncomment it out and delete the search bar if you want that. 
 > https://search.l0bster.ru
 
 Reference your browser documentation to set it as your startpage. 
